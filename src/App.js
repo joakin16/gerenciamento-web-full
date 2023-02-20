@@ -74,11 +74,6 @@ function App() {
       nome: 'Lucian',
       funcao: 'Desenvolvedor',
       habilidades: ['Java', 'Angular']
-    },
-    {
-      nome: 'Renekton',
-      funcao: 'TopLaner',
-      habilidades: ['Java', 'Vue']
     }
   ])
 
