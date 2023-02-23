@@ -108,8 +108,6 @@ function App() {
 
   const [openAdicionar, setOpenAdicionar] = useState(false);
 
-  const [openDialogoEditar, setOpenDialogoEditar] = useState(false);
-
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -172,15 +170,12 @@ function App() {
     setOpenDialogDelete(!openDialogDelete);
   }
 
-  function fecharEditar() {
-    setOpenDialogoEditar(!openDialogoEditar);
-  }
-
-  function editar(index, nome, funcao, habilidades) {
-    setOpenDialogoEditar(!openDialogoEditar);
+  function editar(index, nome, funcao, habilidades, preferencias) {
+    setOpenAdicionar(!openAdicionar);
     setInputNome(nome);
     setInputFuncao(funcao);
     setInputHabilidades([habilidades]);
+    setInputPreferencias([preferencias]);
     setIndexEditado(index);
   }
 
@@ -190,17 +185,17 @@ function App() {
       nome: inputNome,
       funcao: inputFuncao,
       habilidades: inputHabilidades,
-      preferencias: inputPreferencias,
+      setOpenAdicionar: inputPreferencias,
     };
     setFuncionarios(funcionariosAux);
-    setOpenDialogoEditar(!openDialogoEditar);
+    setOpenAdicionar(!openAdicionar);
   }
 
   return (
     <div>
       <h1 style={{ textAlign: "center" }}>Lista de Funcionários</h1>
 
-      {/* Botão abrirAdicionar */}
+      {/* Botão Adicionar (botão +)*/}
 
       <Button
         size="large"
@@ -219,7 +214,7 @@ function App() {
         <strong>+</strong>
       </Button>
 
-      {/* Diálogo Adicionar */}
+      {/* Diálogo Adicionar/ Editar e inputs*/}
 
       <Dialog
         open={openAdicionar}
@@ -249,11 +244,13 @@ function App() {
             flexDirection: "column",
           }}
         >
-          {/* inputs  */}
+          {/* div inputs  */}
 
           <div
             style={{ marginTop: 20, display: "flex", flexDirection: "column" }}
           >
+            {/* input nome */}
+
             <TextField
               id="outlined-basic"
               type="text"
@@ -261,36 +258,52 @@ function App() {
               variant="outlined"
               size="large"
               value={inputNome}
-              margin="normal"
+              margin="dense"
               onChange={(e) => setInputNome(e.target.value)}
-              style={{ marginRight: 15, marginLeft: 10 }}
+              style={{ marginRight: 15, marginLeft: 10, width: 300 }}
             ></TextField>
+
+            {/* input função */}
 
             <TextField
               id="outlined-basic"
               type="text"
               label="Função"
               variant="outlined"
+              size="large"
               value={inputFuncao}
-              margin="normal"
+              margin="dense"
               onChange={(e) => setInputFuncao(e.target.value)}
-              style={{ marginRight: 15, marginLeft: 10 }}
+              style={{ marginRight: 15, marginLeft: 10, width: 300 }}
             ></TextField>
 
+            {/* input habilidades */}
+
             <FormControl sx={{ width: 300 }}>
-              <InputLabel id="demo-multiple-checkbox-label">
+              <InputLabel
+                id="demo-multiple-checkbox-label"
+                style={{ marginLeft: 10, marginTop: 10 }}
+              >
                 Habilidades
               </InputLabel>
               <Select
                 labelId="demo-multiple-checkbox-label"
+                type="text"
                 id="demo-multiple-checkbox"
+                variant="outlined"
+                label="Habilidades"
                 multiple
                 value={inputHabilidades}
                 onChange={(e) => setInputHabilidades(e.target.value)}
                 input={<OutlinedInput label="Habilidades" />}
                 renderValue={(selected) => selected.join(", ")}
                 MenuProps={MenuProps}
-                style={{ marginRight: 15, marginLeft: 10 }}
+                style={{
+                  marginLeft: 10,
+                  marginRight: 15,
+                  marginTop: 9,
+                  width: 300,
+                }}
               >
                 {listaHabilidades.map((name, index) => (
                   <MenuItem key={index} value={name}>
@@ -301,8 +314,13 @@ function App() {
               </Select>
             </FormControl>
 
+            {/* input preferencias */}
+
             <FormControl sx={{ width: 300 }}>
-              <InputLabel id="demo-simple-select-label">
+              <InputLabel
+                id="demo-simple-select-label"
+                style={{ marginLeft: 10, marginTop: 12 }}
+              >
                 Preferências
               </InputLabel>
               <Select
@@ -314,7 +332,11 @@ function App() {
                 value={inputPreferencias}
                 margin="normal"
                 onChange={(e) => setInputPreferencias(e.target.value)}
-                style={{ marginRight: 15, marginLeft: 10, marginTop: 15 }}
+                style={{
+                  marginTop: 12,
+                  width: 300,
+                  marginLeft: 10,
+                }}
               >
                 {listaPreferencias.map((preferencia, index) => (
                   <MenuItem key={index} value={preferencia}>
@@ -326,15 +348,17 @@ function App() {
           </div>
 
           <br />
+          <br />
+          <br />
 
-          {/* Botão confirmação  */}
+          {/* Botão confirmação com operador ternário */}
 
           {inputNome === "" ? (
             <Button variant="contained" onClick={adicionarSim}>
               Adicionar
             </Button>
           ) : (
-            <Button variant="contained" onClick={adicionarSim}>
+            <Button variant="contained" onClick={editarSim}>
               Salvar
             </Button>
           )}
@@ -347,86 +371,6 @@ function App() {
               marginTop: 40,
             }}
           ></div>
-        </DialogActions>
-      </Dialog>
-
-      {/* fazer um operador ternário para os dois botões (editar e adicionar)
-          e tentar fazer tudo em um diálogo só, deixar o botão em baixo
-      */}
-
-      {/* Diálogo Editar */}
-
-      <Dialog
-        open={openDialogoEditar}
-        TransitionComponent={TransitionAdicionar}
-        keepMounted
-        onClose={fecharEditar}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-        maxWidth="xl"
-        PaperProps={{
-          style: { maxHeight: "80vh", minHeight: "20vh", height: "25%" },
-        }}
-      >
-        <DialogTitle id="alert-dialog-title">
-          <span
-            style={{ display: "flex", justifyContent: "center" }}
-          >{`Digite os novos dados do usuário: `}</span>
-        </DialogTitle>
-        <DialogActions>
-          <div style={{ marginTop: 20 }}>
-            <TextField
-              id="outlined-basic"
-              type="text"
-              label="Nome"
-              variant="outlined"
-              size="large"
-              value={inputNome}
-              margin="none"
-              onChange={(e) => setInputNome(e.target.value)}
-              style={{ marginRight: 15, marginLeft: 10 }}
-            ></TextField>
-
-            <TextField
-              id="outlined-basic"
-              type="text"
-              label="Função"
-              variant="outlined"
-              value={inputFuncao}
-              onChange={(e) => setInputFuncao(e.target.value)}
-              style={{ marginRight: 15 }}
-            ></TextField>
-
-            <FormControl sx={{ width: 300 }}>
-              <InputLabel id="demo-multiple-checkbox-label">
-                Habilidades
-              </InputLabel>
-              <Select
-                labelId="demo-multiple-checkbox-label"
-                id="demo-multiple-checkbox"
-                multiple
-                value={inputHabilidades}
-                onChange={(e) => setInputHabilidades(e.target.value)}
-                input={<OutlinedInput label="Habilidades" />}
-                renderValue={(selected) => selected.join(", ")}
-                MenuProps={MenuProps}
-              >
-                {listaHabilidades.map((name, index) => (
-                  <MenuItem key={index} value={name}>
-                    <Checkbox checked={inputHabilidades.indexOf(name) > -1} />
-                    <ListItemText primary={name} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </div>
-
-          <div style={{ display: "flex" }}>
-            {}
-            <Button variant="contained" onClick={editarSim}>
-              Salvar
-            </Button>
-          </div>
         </DialogActions>
       </Dialog>
 
@@ -479,7 +423,8 @@ function App() {
                         index,
                         funcionario.nome,
                         funcionario.funcao,
-                        funcionario.habilidades
+                        funcionario.habilidades,
+                        funcionario.preferencias
                       )
                     }
                   ></Button>
@@ -525,7 +470,7 @@ function App() {
         </DialogActions>
       </Dialog>
 
-      {/* Div e snackbar de dados inválidos*/}
+      {/* Div e Snackbar de dados inválidos*/}
 
       <div>
         <Snackbar
