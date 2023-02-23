@@ -22,9 +22,11 @@ import {
   Slide,
   Snackbar,
   Box,
+  Fab,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import AddIcon from "@mui/icons-material/Add";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -149,6 +151,7 @@ function App() {
       setInputNome("");
       setInputFuncao("");
       setInputHabilidades([]);
+      setInputPreferencias("");
       setOpenAdicionar(!openAdicionar);
     }
   }
@@ -194,25 +197,6 @@ function App() {
   return (
     <div>
       <h1 style={{ textAlign: "center" }}>Lista de Funcionários</h1>
-
-      {/* Botão Adicionar (botão +)*/}
-
-      <Button
-        size="large"
-        style={{
-          position: "fixed",
-          bottom: "20px",
-          right: "20px",
-          width: "60px",
-          height: "60px",
-          borderRadius: "30px",
-          fontSize: "30px",
-        }}
-        variant="contained"
-        onClick={abrirAdicionar}
-      >
-        <strong>+</strong>
-      </Button>
 
       {/* Diálogo Adicionar/ Editar e inputs*/}
 
@@ -482,6 +466,40 @@ function App() {
           key={vertical + horizontal}
         />
       </div>
+
+      <Box>
+        <Fab
+          color="primary"
+          aria-label="add"
+          style={{
+            position: "fixed",
+            bottom: "20px",
+            right: "20px",
+            width: "60px",
+            height: "60px",
+          }}
+          onClick={abrirAdicionar}
+        >
+          <AddIcon />
+        </Fab>
+      </Box>
+
+      {/* <Button
+        size="large"
+        style={{
+          position: "fixed",
+          bottom: "20px",
+          right: "20px",
+          width: "60px",
+          height: "60px",
+          borderRadius: "30px",
+          fontSize: "30px",
+        }}
+        variant="contained"
+        onClick={abrirAdicionar}
+      >
+        <strong>+</strong>
+      </Button> */}
     </div>
   );
 }
