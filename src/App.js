@@ -119,7 +119,7 @@ function App() {
 
   const [botaoEditarAdicionar, setBotaoEditarAdicionar] = useState(false);
 
-  const [botaoOrdenar, setBotaoOrdenar] = useState(false);
+  const [botaoOrdenar, setBotaoOrdenar] = useState(true);
 
   const { vertical, horizontal, open } = state;
 
@@ -265,6 +265,56 @@ function App() {
           });
         }
         setFuncionarios(funcoesOrdenadas);
+        console.log(id);
+        break;
+      case 3:
+        if (botaoOrdenar) {
+          habilidadesOrdenadas.sort((a, b) => {
+            if (a.habilidades < b.habilidades) {
+              return -1;
+            }
+            if (a.habilidades > b.habilidades) {
+              return 1;
+            }
+            return 0;
+          });
+        } else {
+          habilidadesOrdenadas.sort((a, b) => {
+            if (a.habilidades < b.habilidades) {
+              return 1;
+            }
+            if (a.habilidades > b.habilidades) {
+              return -1;
+            }
+            return 0;
+          });
+        }
+        setFuncionarios(habilidadesOrdenadas);
+        console.log(id);
+        break;
+      case 4:
+        if (botaoOrdenar) {
+          preferenciasOrdenadas.sort((a, b) => {
+            if (a.preferencias < b.preferencias) {
+              return -1;
+            }
+            if (a.preferencias > b.preferencias) {
+              return 1;
+            }
+            return 0;
+          });
+        } else {
+          preferenciasOrdenadas.sort((a, b) => {
+            if (a.preferencias < b.preferencias) {
+              return 1;
+            }
+            if (a.preferencias > b.preferencias) {
+              return -1;
+            }
+            return 0;
+          });
+        }
+        setFuncionarios(preferenciasOrdenadas);
         console.log(id);
         break;
     }
@@ -484,6 +534,7 @@ function App() {
                     minWidth: 20,
                     minHeight: 15,
                   }}
+                  onClick={() => ordenarCrescente(3)}
                 ></Button>
               </TableCell>
 
@@ -499,6 +550,7 @@ function App() {
                     minWidth: 20,
                     minHeight: 15,
                   }}
+                  onClick={() => ordenarCrescente(4)}
                 ></Button>
               </TableCell>
               <TableCell align="left">Ações</TableCell>
@@ -526,13 +578,14 @@ function App() {
 
                   <Button
                     variant="text"
-                    startIcon={<EditIcon />}
+                    startIcon={<EditIcon style={{ marginLeft: 9 }} />}
                     size="small"
                     style={{
-                      width: 30, // definindo uma largura menor
-                      height: 30, // definindo uma altura menor
+                      width: 30,
+                      height: 30,
                       minWidth: 20,
                       minHeight: 15,
+                      marginRight: 0,
                     }}
                     onClick={() =>
                       editar(
@@ -549,9 +602,14 @@ function App() {
 
                   <Button
                     variant="text"
+                    startIcon={<DeleteIcon style={{ marginLeft: 9 }} />}
                     size="small"
-                    startIcon={<DeleteIcon />}
-                    disableFocusRipple={true}
+                    style={{
+                      width: 30,
+                      height: 30,
+                      minWidth: 20,
+                      minHeight: 15,
+                    }}
                     onClick={() => deletar(index, funcionario.nome)}
                   ></Button>
                 </TableCell>
