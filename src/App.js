@@ -27,6 +27,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
+import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -61,21 +62,21 @@ const TransitionAdicionar = React.forwardRef(function Transition(props, ref) {
 function App() {
   const [funcionarios, setFuncionarios] = useState([
     {
-      nome: "Camille",
-      funcao: "Trainee",
-      habilidades: ["Angular", "Java"],
-      preferencias: "Front-end",
-    },
-    {
       nome: "Fiora",
       funcao: "Desenvolvedora",
       habilidades: ["Vue", "React"],
       preferencias: "Back-end",
     },
     {
-      nome: "Jax",
-      funcao: "Tester",
-      habilidades: ["Vue", "Angular"],
+      nome: "Rakan",
+      funcao: "Analista",
+      habilidades: ["Ract Native", "React", "Java"],
+      preferencias: "Front-end",
+    },
+    {
+      nome: "Camille",
+      funcao: "Trainee",
+      habilidades: ["Angular", "Java"],
       preferencias: "Front-end",
     },
     {
@@ -85,9 +86,9 @@ function App() {
       preferencias: "Back-end",
     },
     {
-      nome: "Rakan",
-      funcao: "Analista",
-      habilidades: ["Ract Native", "React", "Java"],
+      nome: "Jax",
+      funcao: "Tester",
+      habilidades: ["Vue", "Angular"],
       preferencias: "Front-end",
     },
   ]);
@@ -116,6 +117,10 @@ function App() {
     horizontal: "center",
   });
 
+  const [botaoEditarAdicionar, setBotaoEditarAdicionar] = useState(false);
+
+  const [botaoOrdenar, setBotaoOrdenar] = useState(false);
+
   const { vertical, horizontal, open } = state;
 
   const closeSnackBarDeletar = () => {
@@ -123,6 +128,7 @@ function App() {
   };
 
   function abrirAdicionar() {
+    setBotaoEditarAdicionar(true);
     setOpenAdicionar(!openAdicionar);
     setInputNome("");
     setInputFuncao("");
@@ -137,7 +143,8 @@ function App() {
     if (
       inputNome === "" ||
       inputFuncao === "" ||
-      inputHabilidades.length === 0
+      inputHabilidades.length === 0 ||
+      inputPreferencias === ""
     ) {
       setState({ ...state, open: true });
     } else {
@@ -174,24 +181,94 @@ function App() {
   }
 
   function editar(index, nome, funcao, habilidades, preferencias) {
+    setBotaoEditarAdicionar(false);
     setOpenAdicionar(!openAdicionar);
     setInputNome(nome);
     setInputFuncao(funcao);
-    setInputHabilidades([habilidades]);
+    setInputHabilidades(habilidades);
     setInputPreferencias([preferencias]);
     setIndexEditado(index);
+    console.log(habilidades);
   }
 
   function editarSim() {
-    const funcionariosAux = funcionarios.slice();
-    funcionariosAux[indexEditado] = {
-      nome: inputNome,
-      funcao: inputFuncao,
-      habilidades: inputHabilidades,
-      setOpenAdicionar: inputPreferencias,
-    };
-    setFuncionarios(funcionariosAux);
-    setOpenAdicionar(!openAdicionar);
+    if (
+      inputNome === "" ||
+      inputFuncao === "" ||
+      inputHabilidades.length === 0 ||
+      inputPreferencias === ""
+    ) {
+      setState({ ...state, open: true });
+    } else {
+      const funcionariosAux = [...funcionarios];
+      funcionariosAux[indexEditado] = {
+        nome: inputNome,
+        funcao: inputFuncao,
+        habilidades: [...inputHabilidades],
+        preferencias: inputPreferencias,
+      };
+      setFuncionarios(funcionariosAux);
+      setOpenAdicionar(!openAdicionar);
+    }
+  }
+
+  function ordenarCrescente(id) {
+    const nomesOrdenados = [...funcionarios];
+    const funcoesOrdenadas = [...funcionarios];
+    const habilidadesOrdenadas = [...funcionarios];
+    const preferenciasOrdenadas = [...funcionarios];
+    switch (id) {
+      case 1:
+        if (botaoOrdenar) {
+          nomesOrdenados.sort((a, b) => {
+            if (a.nome < b.nome) {
+              return -1;
+            }
+            if (a.nome > b.nome) {
+              return 1;
+            }
+            return 0;
+          });
+        } else {
+          nomesOrdenados.sort((a, b) => {
+            if (a.nome < b.nome) {
+              return 1;
+            }
+            if (a.nome > b.nome) {
+              return -1;
+            }
+            return 0;
+          });
+        }
+        setFuncionarios(nomesOrdenados);
+        break;
+      case 2:
+        if (botaoOrdenar) {
+          funcoesOrdenadas.sort((a, b) => {
+            if (a.funcao < b.funcao) {
+              return -1;
+            }
+            if (a.funcao > b.funcao) {
+              return 1;
+            }
+            return 0;
+          });
+        } else {
+          funcoesOrdenadas.sort((a, b) => {
+            if (a.funcao < b.funcao) {
+              return 1;
+            }
+            if (a.funcao > b.funcao) {
+              return -1;
+            }
+            return 0;
+          });
+        }
+        setFuncionarios(funcoesOrdenadas);
+        console.log(id);
+        break;
+    }
+    setBotaoOrdenar(!botaoOrdenar);
   }
 
   return (
@@ -247,7 +324,7 @@ function App() {
               style={{ marginRight: 15, marginLeft: 10, width: 300 }}
             ></TextField>
 
-            {/* input função */}
+            {/* input função/select */}
 
             <TextField
               id="outlined-basic"
@@ -261,7 +338,7 @@ function App() {
               style={{ marginRight: 15, marginLeft: 10, width: 300 }}
             ></TextField>
 
-            {/* input habilidades */}
+            {/* input/formulário/select habilidades */}
 
             <FormControl sx={{ width: 300 }}>
               <InputLabel
@@ -314,7 +391,7 @@ function App() {
                 label="Preferências"
                 variant="outlined"
                 value={inputPreferencias}
-                margin="normal"
+                margin="dense"
                 onChange={(e) => setInputPreferencias(e.target.value)}
                 style={{
                   marginTop: 12,
@@ -335,9 +412,9 @@ function App() {
           <br />
           <br />
 
-          {/* Botão confirmação com operador ternário */}
+          {/* Botão confirmação com operador ternário (true para adicionar e false para editar*/}
 
-          {inputNome === "" ? (
+          {botaoEditarAdicionar ? (
             <Button variant="contained" onClick={adicionarSim}>
               Adicionar
             </Button>
@@ -365,21 +442,66 @@ function App() {
           <TableHead>
             <TableRow>
               <TableCell>
-                <strong>Nome do Funcionario</strong>
+                Nome do Funcionário (a)
+                <Button
+                  id={1}
+                  startIcon={<UnfoldMoreIcon style={{ marginLeft: 9 }} />}
+                  size="small"
+                  color="inherit"
+                  style={{
+                    width: 20,
+                    height: 15,
+                    minWidth: 20,
+                    minHeight: 15,
+                  }}
+                  onClick={() => ordenarCrescente(1)}
+                ></Button>
               </TableCell>
-              <TableCell align="right">
-                <strong>Função</strong>
+              <TableCell align="left">
+                Função
+                <Button
+                  startIcon={<UnfoldMoreIcon style={{ marginLeft: 9 }} />}
+                  size="small"
+                  color="inherit"
+                  style={{
+                    width: 20,
+                    height: 15,
+                    minWidth: 20,
+                    minHeight: 15,
+                  }}
+                  onClick={() => ordenarCrescente(2)}
+                ></Button>
               </TableCell>
-              <TableCell align="right">
-                <strong>Habilidades</strong>
+              <TableCell align="left">
+                Habilidades
+                <Button
+                  startIcon={<UnfoldMoreIcon style={{ marginLeft: 9 }} />}
+                  size="small"
+                  color="inherit"
+                  style={{
+                    width: 20,
+                    height: 15,
+                    minWidth: 20,
+                    minHeight: 15,
+                  }}
+                ></Button>
               </TableCell>
 
-              <TableCell align="right">
-                <strong>Preferências</strong>
+              <TableCell align="left">
+                Preferências
+                <Button
+                  startIcon={<UnfoldMoreIcon style={{ marginLeft: 9 }} />}
+                  size="small"
+                  color="inherit"
+                  style={{
+                    width: 20,
+                    height: 15,
+                    minWidth: 20,
+                    minHeight: 15,
+                  }}
+                ></Button>
               </TableCell>
-              <TableCell align="right">
-                <strong></strong>
-              </TableCell>
+              <TableCell align="left">Ações</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -387,21 +509,31 @@ function App() {
               <TableRow
                 key={index}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                style={{
+                  backgroundColor: index % 2 === 0 ? "lightgray" : "white",
+                }}
               >
                 <TableCell component="th" scope="row">
                   {funcionario.nome}
                 </TableCell>
-                <TableCell align="right">{funcionario.funcao}</TableCell>
-                <TableCell align="right">
+                <TableCell align="left">{funcionario.funcao}</TableCell>
+                <TableCell align="left">
                   {funcionario.habilidades.join(", ")}
                 </TableCell>
-                <TableCell align="right">{funcionario.preferencias}</TableCell>
-                <TableCell align="right">
+                <TableCell align="left">{funcionario.preferencias}</TableCell>
+                <TableCell align="left">
                   {/* Botão de edit */}
 
                   <Button
                     variant="text"
                     startIcon={<EditIcon />}
+                    size="small"
+                    style={{
+                      width: 30, // definindo uma largura menor
+                      height: 30, // definindo uma altura menor
+                      minWidth: 20,
+                      minHeight: 15,
+                    }}
                     onClick={() =>
                       editar(
                         index,
@@ -417,7 +549,9 @@ function App() {
 
                   <Button
                     variant="text"
+                    size="small"
                     startIcon={<DeleteIcon />}
+                    disableFocusRipple={true}
                     onClick={() => deletar(index, funcionario.nome)}
                   ></Button>
                 </TableCell>
@@ -483,23 +617,6 @@ function App() {
           <AddIcon />
         </Fab>
       </Box>
-
-      {/* <Button
-        size="large"
-        style={{
-          position: "fixed",
-          bottom: "20px",
-          right: "20px",
-          width: "60px",
-          height: "60px",
-          borderRadius: "30px",
-          fontSize: "30px",
-        }}
-        variant="contained"
-        onClick={abrirAdicionar}
-      >
-        <strong>+</strong>
-      </Button> */}
     </div>
   );
 }
