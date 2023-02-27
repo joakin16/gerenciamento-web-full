@@ -29,7 +29,6 @@ import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import SearchIcon from "@mui/icons-material/Search";
 import Tooltip from "@mui/material/Tooltip";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Link } from "react-router-dom";
 
 const theme = createTheme({
   status: {
@@ -363,18 +362,16 @@ function Home() {
 
   function pesquisar() {
     setOpenDialogPesquisa(!openDialogPesquisa);
-    // const pesquisa = funcionarios.find( funcionario => funcionario.preferencias === inputPesquisa)
-    // setFuncionarioPesquisa(pesquisa)
-    // console.log(typeof pesquisa)
-    funcionarios.forEach((funcionario) => {
-      const pesquisa = funcionario.nome.includes(inputPesquisa);
-      console.log(pesquisa);
-      console.log(funcionario);
+    funcionarios.forEach((funcionario, index) => {
+      if (inputPesquisa === funcionario.nome) {
+        setFuncionarioPesquisa(funcionario.nome);
+      }
     });
   }
 
   function closePesquisar() {
     setOpenDialogPesquisa(!openDialogPesquisa);
+    setFuncionarioPesquisa("");
   }
 
   return (
