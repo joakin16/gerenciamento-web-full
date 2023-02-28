@@ -1,0 +1,25 @@
+header{
+    background-color: #b9114b;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header a{
+    color: #FFF;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+header a{
+    margin-left: 10px;
+}
+
+.menu{
+    margin-top: 80px;
+    margin-right: 10px;
+}
+
+.imagemLogo{
+    width: 200px;
+}
