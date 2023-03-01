@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React, { useEffect, useState } from "react";
-=======
-import React, { useState } from "react";
->>>>>>> e382620859a6fbaaadd74885f62e44636cb6c75e
+import React, { useState, useEffect } from "react";
 import {
   Button,
   TextField,
@@ -133,6 +129,8 @@ function Home() {
     },
   ]);
 
+  const funcionariosOriginais = [funcionarios];
+
   const [inputNome, setInputNome] = useState("");
 
   const [inputFuncao, setInputFuncao] = useState("");
@@ -149,13 +147,9 @@ function Home() {
 
   const [funcionarioDeletado, setFuncionarioDeletado] = useState("");
 
-  const [funcionarioPesquisa, setFuncionarioPesquisa] = useState([]);
-
   const [openDialogDelete, setOpenDialogDelete] = useState(false);
 
   const [openAdicionar, setOpenAdicionar] = useState(false);
-
-  const [openDialogPesquisa, setOpenDialogPesquisa] = useState(false);
 
   const [botaoEditarAdicionar, setBotaoEditarAdicionar] = useState(false);
 
@@ -367,18 +361,24 @@ function Home() {
   }
 
   function pesquisar() {
-    setFuncionarioPesquisa(funcionarios);
-    funcionarios.forEach((funcionario) => {
-      if (funcionario.nome.includes(inputPesquisa)) {
-        console.log(funcionario.nome);
+    if (inputPesquisa !== 0) {
+      const funcionariosAux = [...funcionarios];
+      for (let i = funcionarios.length - 1; i >= 0; i--) {
+        if (
+          !funcionarios[i].nome
+            .toLocaleLowerCase()
+            .includes(inputPesquisa.toLocaleLowerCase())
+        ) {
+          funcionariosAux.splice(i, 1);
+        }
       }
-    });
-    console.log(funcionarioPesquisa);
+      console.log(funcionariosOriginais);
+      setFuncionarios(funcionariosAux);
+    } else {
+      setFuncionarios(funcionariosOriginais);
+    }
+    console.log(funcionariosOriginais);
   }
-
-  useEffect(() => {
-    pesquisar();
-  }, [inputPesquisa]);
 
   return (
     <div className="listaDeFuncionarios">
@@ -394,6 +394,11 @@ function Home() {
             onChange={(e) => setInputPesquisa(e.target.value)}
             type="text"
             label="Nome"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                pesquisar();
+              }
+            }}
           />
           <Button
             size="medium"
@@ -743,26 +748,6 @@ function Home() {
             </Button>
           </DialogActions>
         </Dialog>
-
-        {/* Diálogo Pesquisa */}
-
-        {/* <Dialog open={openDialogPesquisa} onClose={closePesquisar}>
-          <DialogActions
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              textAlign: "center",
-            }}
-          >
-            <DialogTitle>
-              <span style={{ display: "flex", justifyContent: "center" }}>
-                {`Pesquisa:`}
-              </span>
-            </DialogTitle>
-            <span>{`O funcionario encontrado foi o = ${funcionarioPesquisa}`}</span>
-          </DialogActions>
-        </Dialog> */}
       </ThemeProvider>
     </div>
   );
