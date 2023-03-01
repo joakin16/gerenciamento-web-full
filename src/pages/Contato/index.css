@@ -1,0 +1,24 @@
+.listaDeFuncionarios{
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.pesquisarCadastrar{
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.tituloPrincipal{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: sans-serif;
+
+}
+
+.botaoFiltro{
+    width: 20;
+    height: 15;
+    min-width: 20;
+    min-height: 15;
+}

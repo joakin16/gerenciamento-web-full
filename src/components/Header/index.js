@@ -4,12 +4,15 @@ function Header() {
   return (
     <header>
       <a href="/">
-        <img src="https://youxgroup.com.br/wp-content/uploads/2021/07/logosite.png" />
+        <img
+          className="imagemLogo"
+          src="https://youxgroup.com.br/wp-content/uploads/2021/07/logosite.png"
+        />
       </a>
       <div className="menu">
         <Link to="/">Home</Link>
-        <Link to="/contato">Contato</Link>
-        <Link to="/sobre">Sobre</Link>
+        <Link to="/contato">Tabela Contato</Link>
+        <Link to="/sobre">Tabela Sobre</Link>
       </div>
     </header>
   );

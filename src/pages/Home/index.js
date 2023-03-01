@@ -29,6 +29,7 @@ import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import SearchIcon from "@mui/icons-material/Search";
 import Tooltip from "@mui/material/Tooltip";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import "./index.css";
 
 const theme = createTheme({
   status: {
@@ -150,8 +151,6 @@ function Home() {
 
   const [openAdicionar, setOpenAdicionar] = useState(false);
 
-  const [openDialogPesquisa, setOpenDialogPesquisa] = useState(false);
-
   const [botaoEditarAdicionar, setBotaoEditarAdicionar] = useState(false);
 
   const [botaoOrdenar, setBotaoOrdenar] = useState(true);
@@ -252,6 +251,7 @@ function Home() {
   }
 
   function ordenarCrescente(id) {
+    console.log(id);
     const nomesOrdenados = [...funcionarios];
     const funcoesOrdenadas = [...funcionarios];
     const habilidadesOrdenadas = [...funcionarios];
@@ -361,27 +361,27 @@ function Home() {
   }
 
   function pesquisar() {
-    setOpenDialogPesquisa(!openDialogPesquisa);
-    funcionarios.forEach((funcionario, index) => {
-      if (inputPesquisa === funcionario.nome) {
-        setFuncionarioPesquisa(funcionario.nome);
+    setFuncionarioPesquisa(funcionarios);
+    funcionarios.forEach((funcionario) => {
+      if (funcionario.nome.includes(inputPesquisa)) {
+        console.log(funcionario.nome);
       }
     });
+    console.log(funcionarioPesquisa);
   }
 
-  function closePesquisar() {
-    setOpenDialogPesquisa(!openDialogPesquisa);
-    setFuncionarioPesquisa("");
-  }
+  useEffect(() => {
+    pesquisar();
+  }, [inputPesquisa]);
 
   return (
-    <div>
+    <div className="listaDeFuncionarios">
       <ThemeProvider theme={theme}>
-        <h1 style={{ textAlign: "center" }}>Lista de Funcionários</h1>
+        <h1 className="tituloPrincipal">Lista de Funcionários</h1>
 
         {/* div Botão/input de pesquisa/botão cadastrar*/}
 
-        <div>
+        <div className="pesquisarCadastrar">
           <TextField
             size="small"
             value={inputPesquisa}
@@ -390,7 +390,7 @@ function Home() {
             label="Nome"
           />
           <Button
-            size=""
+            size="medium"
             variant="contained"
             startIcon={<SearchIcon />}
             onClick={pesquisar}
@@ -406,7 +406,7 @@ function Home() {
               textAlign: "center",
               justifyContent: "center",
               position: "absolute",
-              right: "8px",
+              right: "30px",
             }}
             onClick={abrirAdicionar}
           >
@@ -423,61 +423,41 @@ function Home() {
                 <TableCell>
                   Nome do Funcionário (a)
                   <Button
+                    className="botaoFiltro"
                     id={1}
                     startIcon={<UnfoldMoreIcon style={{ marginLeft: 9 }} />}
                     size="small"
                     color="inherit"
-                    style={{
-                      width: 20,
-                      height: 15,
-                      minWidth: 20,
-                      minHeight: 15,
-                    }}
                     onClick={() => ordenarCrescente(1)}
                   ></Button>
                 </TableCell>
                 <TableCell align="left">
                   Função
                   <Button
+                    className="botaoFiltro"
                     startIcon={<UnfoldMoreIcon style={{ marginLeft: 9 }} />}
                     size="small"
                     color="inherit"
-                    style={{
-                      width: 20,
-                      height: 15,
-                      minWidth: 20,
-                      minHeight: 15,
-                    }}
                     onClick={() => ordenarCrescente(2)}
                   ></Button>
                 </TableCell>
                 <TableCell align="left">
                   Habilidades
                   <Button
+                    className="botaoFiltro"
                     startIcon={<UnfoldMoreIcon style={{ marginLeft: 9 }} />}
                     size="small"
                     color="inherit"
-                    style={{
-                      width: 20,
-                      height: 15,
-                      minWidth: 20,
-                      minHeight: 15,
-                    }}
                     onClick={() => ordenarCrescente(3)}
                   ></Button>
                 </TableCell>
                 <TableCell align="left">
                   Preferências
                   <Button
+                    className="botaoFiltro"
                     startIcon={<UnfoldMoreIcon style={{ marginLeft: 9 }} />}
                     size="small"
                     color="inherit"
-                    style={{
-                      width: 20,
-                      height: 15,
-                      minWidth: 20,
-                      minHeight: 15,
-                    }}
                     onClick={() => ordenarCrescente(4)}
                   ></Button>
                 </TableCell>
@@ -509,12 +489,6 @@ function Home() {
                         variant="text"
                         startIcon={<EditIcon style={{ marginLeft: 9 }} />}
                         size="small"
-                        style={{
-                          width: 30,
-                          height: 30,
-                          minWidth: 20,
-                          minHeight: 15,
-                        }}
                         onClick={() =>
                           editar(
                             index,
@@ -534,12 +508,6 @@ function Home() {
                         variant="text"
                         startIcon={<DeleteIcon style={{ marginLeft: 9 }} />}
                         size="small"
-                        style={{
-                          width: 30,
-                          height: 30,
-                          minWidth: 20,
-                          minHeight: 15,
-                        }}
                         onClick={() => deletar(index, funcionario.nome)}
                       ></Button>
                     </Tooltip>
@@ -772,14 +740,13 @@ function Home() {
 
         {/* Diálogo Pesquisa */}
 
-        <Dialog open={openDialogPesquisa} onClose={closePesquisar}>
+        {/* <Dialog open={openDialogPesquisa} onClose={closePesquisar}>
           <DialogActions
             style={{
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
               textAlign: "center",
-              // flexDirection: "flex",
             }}
           >
             <DialogTitle>
@@ -789,7 +756,7 @@ function Home() {
             </DialogTitle>
             <span>{`O funcionario encontrado foi o = ${funcionarioPesquisa}`}</span>
           </DialogActions>
-        </Dialog>
+        </Dialog> */}
       </ThemeProvider>
     </div>
   );
