@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
+=======
+import React, { useState } from "react";
+>>>>>>> e382620859a6fbaaadd74885f62e44636cb6c75e
 import {
   Button,
   TextField,
@@ -150,6 +154,8 @@ function Home() {
   const [openDialogDelete, setOpenDialogDelete] = useState(false);
 
   const [openAdicionar, setOpenAdicionar] = useState(false);
+
+  const [openDialogPesquisa, setOpenDialogPesquisa] = useState(false);
 
   const [botaoEditarAdicionar, setBotaoEditarAdicionar] = useState(false);
 
