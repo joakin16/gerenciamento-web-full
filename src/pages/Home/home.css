@@ -5,25 +5,12 @@
 
 .pesquisarCadastrar{
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .tituloPrincipal{
-    text-align: left;
+    text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
     font-family: sans-serif;
-}
-
-.botaoFiltro{
-    width: 20;
-    height: 15;
-    min-width: 20;
-    min-height: 15;
-}
-
-.botaoDeleteEdit{
-    width: 30;
-    height: 30;
-    min-width: 20;
-    min-height: 15;
 }

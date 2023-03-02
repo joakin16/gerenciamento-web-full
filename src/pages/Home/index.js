@@ -29,7 +29,7 @@ import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import SearchIcon from "@mui/icons-material/Search";
 import Tooltip from "@mui/material/Tooltip";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import "./index.css";
+import "./home.css";
 
 const theme = createTheme({
   status: {
@@ -361,23 +361,20 @@ function Home() {
   }
 
   function pesquisar() {
-    if (inputPesquisa !== 0) {
-      const funcionariosAux = [...funcionarios];
-      for (let i = funcionarios.length - 1; i >= 0; i--) {
-        if (
-          !funcionarios[i].nome
-            .toLocaleLowerCase()
-            .includes(inputPesquisa.toLocaleLowerCase())
-        ) {
-          funcionariosAux.splice(i, 1);
-        }
+    const funcionariosAuxPesquisa = [];
+    const funcionariosAuxDelete = [];
+    funcionarios.forEach((funcionario) => {
+      if (
+        funcionario.nome
+          .toLocaleLowerCase()
+          .includes(inputPesquisa.toLocaleLowerCase())
+      ) {
+        funcionariosAuxPesquisa.push(funcionario);
+      } else {
+        funcionariosAuxDelete.push(funcionario);
       }
-      console.log(funcionariosOriginais);
-      setFuncionarios(funcionariosAux);
-    } else {
-      setFuncionarios(funcionariosOriginais);
-    }
-    console.log(funcionariosOriginais);
+    });
+    setFuncionarios(funcionariosAuxPesquisa);
   }
 
   return (
@@ -434,8 +431,8 @@ function Home() {
                 <TableCell>
                   Nome do Funcionário (a)
                   <Button
-                    className="botaoFiltro"
                     id={1}
+                    className="botaoViktor"
                     startIcon={<UnfoldMoreIcon style={{ marginLeft: 9 }} />}
                     size="small"
                     color="inherit"

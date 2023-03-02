@@ -7,3 +7,10 @@
 body{
     font-family: sans-serif;
 }
+
+.botaoFiltro{
+    width: 20;
+    height: 15;
+    min-width: 20;
+    min-height: 15;
+}
