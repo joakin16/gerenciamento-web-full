@@ -10,20 +10,18 @@ import EsqueciSenha from "../pages/Esquecisenha";
 
 function RoutesApp() {
   return (
-    <>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/sobre" element={<Sobre />} />
-          <Route path="/contato" element={<Contato />} />
-          <Route path="/login/login" element={<Login />} />
-          <Route path="/login/logout" element={<Logout />} />
-          <Route path="/cadastro" element={<Cadastro />} />
-          <Route path="/esquecisenha" element={<EsqueciSenha />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/sobre" element={<Sobre />} />
+        <Route path="/contato" element={<Contato />} />
+        <Route path="/login/login" element={<Login />} />
+        <Route path="/login/logout" element={<Logout />} />
+        <Route path="/cadastro" element={<Cadastro />} />
+        <Route path="/esquecisenha" element={<EsqueciSenha />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

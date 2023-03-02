@@ -29,7 +29,7 @@ function EsqueciSenha() {
         <br />
         <br />
         <TextField
-          label="digite seu e-maillogin"
+          label="digite seu e-mail"
           style={{ width: "271px" }}
         ></TextField>{" "}
         <br />
