@@ -32,7 +32,7 @@ function BasicTable({ funcionarios, ordenarCrescente, editar, deletar }) {
         <TableHead>
           <TableRow>
             <TableCell>
-              Nome do FUncionário(a)
+              Nome do Funcionário(a)
               <Button
                 id={1}
                 className="botaoFiltro"
@@ -129,6 +129,7 @@ function BasicTable({ funcionarios, ordenarCrescente, editar, deletar }) {
             ))}
         </TableBody>
       </Table>
+      <hr style={{ borderTop: "1px solid #f8f8f8" }} />
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"

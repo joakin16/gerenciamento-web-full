@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import "./home.css";
 import {
   Button,
   TextField,
   OutlinedInput,
   InputLabel,
-  TableHead,
-  TableRow,
-  TableBody,
-  Table,
-  TableCell,
-  TableContainer,
-  Paper,
   MenuItem,
   FormControl,
   ListItemText,
@@ -20,17 +14,13 @@ import {
   DialogTitle,
   DialogActions,
   Slide,
-  Snackbar,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
-import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import SearchIcon from "@mui/icons-material/Search";
-import Tooltip from "@mui/material/Tooltip";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import "./home.css";
 import BasicTable from "../../components/BasicTable";
+import SnackBarDadosInvalidos from "../../components/SnackBarDadosInvalidos.js";
+import DeleteDialog from "../../components/DeleteDialog";
 
 const theme = createTheme({
   status: {
@@ -423,108 +413,6 @@ function Home() {
 
         {/* Tabela */}
 
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  Nome do Funcionário (a)
-                  <Button
-                    id={1}
-                    className="botaoFiltro"
-                    startIcon={<UnfoldMoreIcon style={{ marginLeft: 9 }} />}
-                    size="small"
-                    color="inherit"
-                    onClick={() => ordenarCrescente(1)}
-                  ></Button>
-                </TableCell>
-                <TableCell align="left">
-                  Função
-                  <Button
-                    className="botaoFiltro"
-                    startIcon={<UnfoldMoreIcon style={{ marginLeft: 9 }} />}
-                    size="small"
-                    color="inherit"
-                    onClick={() => ordenarCrescente(2)}
-                  ></Button>
-                </TableCell>
-                <TableCell align="left">
-                  Habilidades
-                  <Button
-                    className="botaoFiltro"
-                    startIcon={<UnfoldMoreIcon style={{ marginLeft: 9 }} />}
-                    size="small"
-                    color="inherit"
-                    onClick={() => ordenarCrescente(3)}
-                  ></Button>
-                </TableCell>
-                <TableCell align="left">
-                  Preferências
-                  <Button
-                    className="botaoFiltro"
-                    startIcon={<UnfoldMoreIcon style={{ marginLeft: 9 }} />}
-                    size="small"
-                    color="inherit"
-                    onClick={() => ordenarCrescente(4)}
-                  ></Button>
-                </TableCell>
-                <TableCell align="right">Ações</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {funcionarios.map((funcionario, index) => (
-                <TableRow
-                  key={index}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  style={{
-                    backgroundColor: index % 2 === 0 ? "#ffc9e4" : "white",
-                  }}
-                >
-                  <TableCell component="th" scope="row">
-                    {funcionario.nome}
-                  </TableCell>
-                  <TableCell align="left">{funcionario.funcao}</TableCell>
-                  <TableCell align="left">
-                    {funcionario.habilidades.join(", ")}
-                  </TableCell>
-                  <TableCell align="left">{funcionario.preferencias}</TableCell>
-                  <TableCell align="right">
-                    {/* Botão de edit */}
-
-                    <Tooltip title="Editar">
-                      <Button
-                        variant="text"
-                        startIcon={<EditIcon style={{ marginLeft: 9 }} />}
-                        size="small"
-                        onClick={() =>
-                          editar(
-                            index,
-                            funcionario.nome,
-                            funcionario.funcao,
-                            funcionario.habilidades,
-                            funcionario.preferencias
-                          )
-                        }
-                      ></Button>
-                    </Tooltip>
-
-                    {/* Botão de delete */}
-
-                    <Tooltip title="Deletar">
-                      <Button
-                        variant="text"
-                        startIcon={<DeleteIcon style={{ marginLeft: 9 }} />}
-                        size="small"
-                        onClick={() => deletar(index, funcionario.nome)}
-                      ></Button>
-                    </Tooltip>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-
         <br />
         {/* Diálogo Adicionar/ Editar e inputs*/}
 
@@ -690,52 +578,28 @@ function Home() {
           </DialogActions>
         </Dialog>
 
-        {/* Div e Snackbar de dados inválidos*/}
-
-        <div>
-          <Snackbar
-            anchorOrigin={{ vertical, horizontal }}
-            open={open}
-            autoHideDuration={5000}
-            onClose={closeSnackBarDeletar}
-            message="Dados inválidos"
-            key={vertical + horizontal}
-          />
-        </div>
-
-        {/* Diálogo Deletar */}
-
-        <Dialog
-          open={openDialogDelete}
-          TransitionComponent={TransitionDelete}
-          keepMounted
-          onClose={fecharDialogoDelete}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {`Deseja deletar o usuário ${funcionarioDeletado}?`}
-          </DialogTitle>
-          <DialogActions>
-            <Button
-              onClick={() => {
-                setOpenDialogDelete(!openDialogDelete);
-              }}
-            >
-              Não
-            </Button>
-            <Button onClick={deletarSim} autoFocus>
-              Sim
-            </Button>
-          </DialogActions>
-        </Dialog>
-
         <BasicTable
           funcionarios={funcionarios}
           ordenarCrescente={ordenarCrescente}
           editar={editar}
           deletar={deletar}
         ></BasicTable>
+
+        <SnackBarDadosInvalidos
+          open={open}
+          closeSnackBarDeletar={closeSnackBarDeletar}
+          vertical={vertical}
+          horizontal={horizontal}
+        ></SnackBarDadosInvalidos>
+
+        <DeleteDialog
+          openDialogDelete={openDialogDelete}
+          fecharDialogoDelete={fecharDialogoDelete}
+          TransitionDelete={TransitionDelete}
+          funcionarioDeletado={funcionarioDeletado}
+          deletarSim={deletarSim}
+          setOpenDialogDelete={setOpenDialogDelete}
+        ></DeleteDialog>
       </ThemeProvider>
     </div>
   );
