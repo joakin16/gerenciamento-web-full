@@ -16,6 +16,7 @@ function Header() {
         <Link to="/login/login">Login</Link>
         <Link to="/login/logout">Logout</Link>
         <Link to="/cadastro">Cadastro</Link>
+        <Link to="/esquecisenha">EsqueciSenha</Link>
       </div>
     </header>
   );

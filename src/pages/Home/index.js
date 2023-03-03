@@ -30,6 +30,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Tooltip from "@mui/material/Tooltip";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./home.css";
+import BasicTable from "../../components/BasicTable";
 
 const theme = createTheme({
   status: {
@@ -128,8 +129,6 @@ function Home() {
       preferencias: "Back-end",
     },
   ]);
-
-  const funcionariosOriginais = [funcionarios];
 
   const [inputNome, setInputNome] = useState("");
 
@@ -432,7 +431,7 @@ function Home() {
                   Nome do Funcionário (a)
                   <Button
                     id={1}
-                    className="botaoViktor"
+                    className="botaoFiltro"
                     startIcon={<UnfoldMoreIcon style={{ marginLeft: 9 }} />}
                     size="small"
                     color="inherit"
@@ -527,21 +526,6 @@ function Home() {
         </TableContainer>
 
         <br />
-
-        <span>Exibindo 8 de {funcionarios.length}</span>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "right",
-            textAlign: "center",
-          }}
-        >
-          <Button variant="contained">{"<<"}</Button>
-          <Button variant="contained">{"<"}</Button>
-          <Button variant="contained">{">"}</Button>
-          <Button variant="contained">{">>"}</Button>
-        </div>
-
         {/* Diálogo Adicionar/ Editar e inputs*/}
 
         <Dialog
@@ -745,6 +729,13 @@ function Home() {
             </Button>
           </DialogActions>
         </Dialog>
+
+        <BasicTable
+          funcionarios={funcionarios}
+          ordenarCrescente={ordenarCrescente}
+          editar={editar}
+          deletar={deletar}
+        ></BasicTable>
       </ThemeProvider>
     </div>
   );

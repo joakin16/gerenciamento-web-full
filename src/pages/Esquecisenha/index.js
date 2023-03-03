@@ -25,15 +25,12 @@ function EsqueciSenha() {
       <div className="principalEsqueciSenha">
         <h3>Esqueceu sua senha?</h3> <br />
         <a>Informe seu email e aguarde!</a> <br />
-        <a>Vamos enviar as instruções para recuperar sua senha</a> <br />
-        <br />
-        <br />
+        <a>Vamos enviar as instruções para recuperar sua senha</a>
         <TextField
-          label="digite seu e-mail"
-          style={{ width: "271px" }}
+          label="Digite seu e-mail"
+          style={{ width: "371px", marginTop: "20px", marginBottom: "20px" }}
         ></TextField>{" "}
-        <br />
-        <Button variant="contained" style={{ width: "271px" }}>
+        <Button variant="contained" style={{ width: "371px" }}>
           Recuperar Senha
         </Button>
       </div>

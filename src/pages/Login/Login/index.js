@@ -48,7 +48,11 @@ function Login() {
           }}
         />
         <br />
-        <Button variant="contained" style={{ width: "271px" }} href="/">
+        <Button
+          variant="contained"
+          style={{ width: "271px", fontSize: "16px" }}
+          href="/"
+        >
           entrar
         </Button>
         <br />
