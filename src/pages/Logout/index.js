@@ -1,8 +1,11 @@
 import "./logout.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Logout() {
   const [timer, setTimer] = useState(5);
+
+  const navigate = useNavigate();
 
   function timerMenos() {
     let timerAux = timer;
@@ -10,7 +13,13 @@ function Logout() {
     setTimer(timerAux);
   }
 
-  setTimeout(timerMenos, 1000);
+  setInterval(function () {
+    timerMenos();
+  }, 1000);
+
+  setTimeout(function () {
+    navigate("/login");
+  }, 5000);
 
   return (
     <div className="principal">
@@ -18,9 +27,7 @@ function Logout() {
         {`Você saiu do sistema e será redirecionado em ${timer} segundos`}
       </h2>{" "}
       <br />
-      <a>
-        clique <a href="/login/login">aqui</a> para voltar para a tela de login
-      </a>
+      <a href="/login/login"> clique aqui para voltar para a tela de login</a>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { Button, IconButton, InputAdornment, TextField } from "@mui/material";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./login.css";
@@ -25,6 +26,8 @@ function Login() {
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
+  const navigate = useNavigate();
+
   return (
     <ThemeProvider theme={theme}>
       <div className="telaLogin">
@@ -37,6 +40,11 @@ function Login() {
         <TextField
           type={showPassword ? "text" : "password"}
           label="Password"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              navigate("/");
+            }
+          }}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -51,7 +59,7 @@ function Login() {
         <Button
           variant="contained"
           style={{ width: "271px", fontSize: "16px" }}
-          href="/"
+          onClick={() => navigate("/")}
         >
           entrar
         </Button>

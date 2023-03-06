@@ -11,8 +11,8 @@ function Header() {
       </a>
       <div className="menu">
         <Link to="/">Home</Link>
-        <Link to="/login/login">Login</Link>
-        <Link to="/login/logout">Logout</Link>
+        <Link to="/login">Login</Link>
+        <Link to="/logout">Logout</Link>
         <Link to="/cadastro">Cadastro</Link>
         <Link to="/esquecisenha">EsqueciSenha</Link>
       </div>
