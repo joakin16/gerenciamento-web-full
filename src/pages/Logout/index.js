@@ -27,7 +27,7 @@ function Logout() {
         {`Você saiu do sistema e será redirecionado em ${timer} segundos`}
       </h2>{" "}
       <br />
-      <a href="/login/login"> clique aqui para voltar para a tela de login</a>
+      <a href="/login"> clique aqui para voltar para a tela de login</a>
     </div>
   );
 }

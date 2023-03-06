@@ -3,23 +3,37 @@ header{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    max-height: 100px;
 }
 
 header a{
     color: #FFF;
-    font-size: 20px;
+    font-size: 16px;
     text-decoration: none;
-}
-
-header a{
     margin-left: 10px;
 }
-
-.menu{
-    margin-top: 80px;
-    margin-right: 10px;
+header hr{
+    border: none;
+    border-left: 1px solid #FFF;
+    height: 100px;
+    margin-right: 20px;
 }
 
 .imagemLogo{
     width: 200px;
+}
+.imagemUsuario img{
+    width: 50px;
+    border-radius: 50px;
+    display: flex;
+}
+
+.menuSuperiorDireito{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.dadosUsuário{
+    display: flex;
+    flex-direction: column;
 }
