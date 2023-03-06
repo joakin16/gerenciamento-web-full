@@ -364,6 +364,7 @@ function Home() {
       }
     });
     setFuncionarios(funcionariosAuxPesquisa);
+    console.log(funcionariosAuxDelete);
   }
 
   return (
