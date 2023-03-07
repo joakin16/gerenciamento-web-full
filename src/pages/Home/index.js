@@ -1,15 +1,8 @@
-import React, { useState, use } from "react";
+import React, { useState, useEffect } from "react";
 import "./home.css";
 import {
   Button,
   TextField,
-  OutlinedInput,
-  InputLabel,
-  MenuItem,
-  FormControl,
-  ListItemText,
-  Select,
-  Checkbox,
   Dialog,
   DialogTitle,
   DialogActions,
@@ -21,6 +14,10 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import BasicTable from "../../components/BasicTable";
 import SnackBarDadosInvalidos from "../../components/SnackBarDadosInvalidos.js";
 import DeleteDialog from "../../components/DeleteDialog";
+import InputNome from "../../components/InputNome";
+import InputFuncao from "../../components/InputFuncao";
+import FormularioHabilidades from "../../components/FormularioHabilidades";
+import FormularioPreferencias from "../../components/FormularioPreferencias";
 
 const theme = createTheme({
   status: {
@@ -37,17 +34,6 @@ const theme = createTheme({
     },
   },
 });
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
 
 const listaHabilidades = [
   "React",
@@ -119,6 +105,7 @@ function Home() {
       preferencias: "Back-end",
     },
   ]);
+  const [funcionariosOriginais, setFuncionariosOriginais] = useState();
 
   const [inputNome, setInputNome] = useState("");
 
@@ -144,11 +131,16 @@ function Home() {
 
   const [botaoOrdenar, setBotaoOrdenar] = useState(true);
 
+  useEffect(() => {
+    setFuncionariosOriginais(funcionarios);
+  }, []);
+
   const [state, setState] = useState({
     open: false,
     vertical: "top",
     horizontal: "center",
   });
+
   const { vertical, horizontal, open } = state;
 
   const closeSnackBarDeletar = () => {
@@ -364,7 +356,9 @@ function Home() {
       }
     });
     setFuncionarios(funcionariosAuxPesquisa);
-    console.log(funcionariosAuxDelete);
+    if (inputPesquisa === "") {
+      setFuncionarios(funcionariosOriginais);
+    }
   }
 
   return (
@@ -412,8 +406,6 @@ function Home() {
           </Button>
         </div>
 
-        {/* Tabela */}
-
         <br />
         {/* Diálogo Adicionar/ Editar e inputs*/}
 
@@ -454,102 +446,27 @@ function Home() {
                 flexDirection: "column",
               }}
             >
-              {/* input nome */}
+              <InputNome
+                inputNome={inputNome}
+                setInputNome={setInputNome}
+              ></InputNome>
 
-              <TextField
-                id="outlined-basic"
-                type="text"
-                label="Nome"
-                variant="outlined"
-                size="large"
-                value={inputNome}
-                margin="dense"
-                onChange={(e) => setInputNome(e.target.value)}
-                style={{ marginRight: 15, marginLeft: 10, width: 300 }}
-              ></TextField>
+              <InputFuncao
+                inputFuncao={inputFuncao}
+                setInputFuncao={setInputFuncao}
+              ></InputFuncao>
 
-              {/* input função/select */}
+              <FormularioHabilidades
+                inputHabilidades={inputHabilidades}
+                listaHabilidades={listaHabilidades}
+                setInputHabilidades={setInputHabilidades}
+              ></FormularioHabilidades>
 
-              <TextField
-                id="outlined-basic"
-                type="text"
-                label="Função"
-                variant="outlined"
-                size="large"
-                value={inputFuncao}
-                margin="dense"
-                onChange={(e) => setInputFuncao(e.target.value)}
-                style={{ marginRight: 15, marginLeft: 10, width: 300 }}
-              ></TextField>
-
-              {/* input/formulário/select habilidades */}
-
-              <FormControl sx={{ width: 300 }}>
-                <InputLabel
-                  id="demo-multiple-checkbox-label"
-                  style={{ marginLeft: 10, marginTop: 10 }}
-                >
-                  Habilidades
-                </InputLabel>
-                <Select
-                  labelId="demo-multiple-checkbox-label"
-                  type="text"
-                  id="demo-multiple-checkbox"
-                  variant="outlined"
-                  label="Habilidades"
-                  multiple
-                  value={inputHabilidades}
-                  onChange={(e) => setInputHabilidades(e.target.value)}
-                  input={<OutlinedInput label="Habilidades" />}
-                  renderValue={(selected) => selected.join(", ")}
-                  MenuProps={MenuProps}
-                  style={{
-                    marginLeft: 10,
-                    marginRight: 15,
-                    marginTop: 9,
-                    width: 300,
-                  }}
-                >
-                  {listaHabilidades.map((name, index) => (
-                    <MenuItem key={index} value={name}>
-                      <Checkbox checked={inputHabilidades.indexOf(name) > -1} />
-                      <ListItemText primary={name} />
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-
-              {/* input preferencias */}
-
-              <FormControl sx={{ width: 300 }}>
-                <InputLabel
-                  id="demo-simple-select-label"
-                  style={{ marginLeft: 10, marginTop: 12 }}
-                >
-                  Preferências
-                </InputLabel>
-                <Select
-                  id="demo-simple-select"
-                  labelId="demo-simple-select-label"
-                  type="text"
-                  label="Preferências"
-                  variant="outlined"
-                  value={inputPreferencias}
-                  margin="dense"
-                  onChange={(e) => setInputPreferencias(e.target.value)}
-                  style={{
-                    marginTop: 12,
-                    width: 300,
-                    marginLeft: 10,
-                  }}
-                >
-                  {listaPreferencias.map((preferencia, index) => (
-                    <MenuItem key={index} value={preferencia}>
-                      {preferencia}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+              <FormularioPreferencias
+                inputPreferencias={inputPreferencias}
+                listaPreferencias={listaPreferencias}
+                setInputPreferencias={setInputPreferencias}
+              ></FormularioPreferencias>
             </div>
 
             <br />

@@ -28,6 +28,10 @@ function Login() {
 
   const navigate = useNavigate();
 
+  function goTo(go) {
+    navigate(go);
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <div className="telaLogin">
@@ -35,7 +39,7 @@ function Login() {
           type={"text"}
           label="E-mail"
           style={{ width: "271px" }}
-        ></TextField>{" "}
+        ></TextField>
         <br />
         <TextField
           type={showPassword ? "text" : "password"}
@@ -54,7 +58,7 @@ function Login() {
               </InputAdornment>
             ),
           }}
-        />
+        ></TextField>
         <br />
         <Button
           variant="contained"
@@ -65,11 +69,11 @@ function Login() {
         </Button>
         <br />
         <span>Não tem uma conta? </span>
-        <a href="/cadastro" style={{ textDecoration: "none" }}>
+        <a href="#" onClick={() => goTo("/cadastro")}>
           Cadastre-se
         </a>{" "}
         <br />
-        <a href="/esquecisenha" style={{ textDecoration: "none" }}>
+        <a href="#" onClick={() => goTo("/esquecisenha")}>
           Esqueci minha senha
         </a>
       </div>
