@@ -63,7 +63,7 @@ function Login() {
         <Button
           variant="contained"
           style={{ width: "271px", fontSize: "16px" }}
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/lista")}
         >
           entrar
         </Button>
@@ -71,7 +71,7 @@ function Login() {
         <span>Não tem uma conta? </span>
         <a href="#" onClick={() => goTo("/cadastro")}>
           Cadastre-se
-        </a>{" "}
+        </a>
         <br />
         <a href="#" onClick={() => goTo("/esquecisenha")}>
           Esqueci minha senha

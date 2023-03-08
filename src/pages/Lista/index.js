@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./home.css";
+import "./lista.css";
 import {
   Button,
   TextField,
@@ -54,7 +54,7 @@ const TransitionAdicionar = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function Home() {
+function Lista() {
   const [funcionarios, setFuncionarios] = useState([
     {
       nome: "Fiora",
@@ -523,4 +523,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Lista;

@@ -6,13 +6,14 @@ function SnackBarDadosInvalidos({
   vertical,
   horizontal,
 }) {
+  const mensagem = "Dados inválidoss";
   return (
     <Snackbar
       anchorOrigin={{ vertical, horizontal }}
       open={open}
       autoHideDuration={5000}
       onClose={closeSnackBarDeletar}
-      message="Dados inválidos"
+      message={mensagem}
       key={vertical + horizontal}
     ></Snackbar>
   );

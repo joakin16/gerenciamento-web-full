@@ -26,6 +26,7 @@ header hr{
     width: 50px;
     border-radius: 50px;
     display: flex;
+    margin-right: 10px;
 }
 
 .menuSuperiorDireito{
@@ -36,4 +37,9 @@ header hr{
 .dadosUsuário{
     display: flex;
     flex-direction: column;
+}
+
+.dadosUsuário span{
+    color: #FFF;
+
 }

@@ -23,7 +23,7 @@ function Logout() {
 
   useEffect(() => {
     setTimeout(function () {
-      navigate("/login");
+      navigate("/");
     }, 5000);
   }, []);
 
@@ -33,7 +33,7 @@ function Logout() {
         {`Você saiu do sistema e será redirecionado em ${timer} segundos`}
       </h2>
       <br />
-      <a href="#" onClick={() => goTo("/login")}>
+      <a href="#" onClick={() => goTo("/")}>
         clique aqui para voltar para a tela de login
       </a>
     </div>

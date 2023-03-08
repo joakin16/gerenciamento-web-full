@@ -26,10 +26,11 @@ function Header() {
   return (
     <header>
       <ThemeProvider theme={theme}>
-        <a href="/">
+        <a href="#" onClick={() => navigate("/lista")}>
           <img
             className="imagemLogo"
             src="https://youxgroup.com.br/wp-content/uploads/2021/07/logosite.png"
+            alt="logosite"
           />
         </a>
 
@@ -43,8 +44,8 @@ function Header() {
           </div>
 
           <div className="dadosUsuário">
-            <a>Dados do usuário</a>
-            <a>Cargo do usuário</a>
+            <span>Dados do usuário</span>
+            <span>Cargo do usuário</span>
           </div>
           <Button
             size="large"
