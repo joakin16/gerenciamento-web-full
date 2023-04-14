@@ -1,0 +1,16 @@
+.listaDeFuncionarios{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+
+.MuiTextField-root{
+    width: 300px;
+}
+
+/* .MuiButton-root{
+    width: 300px;
+} */

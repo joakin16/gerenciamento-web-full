@@ -1,0 +1,12 @@
+.telaLogin{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 88vh;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.telaLogin a{
+    text-decoration: nome;
+}

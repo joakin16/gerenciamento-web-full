@@ -1,0 +1,13 @@
+.tabela{
+    margin: 50px;
+    border-spacing: 0 8px;
+}
+
+.botaoAcoes{
+    display: flex;
+    justify-content: flex-end;
+}
+
+tr:nth-child(even) {
+    background-color: #ffc9e4;
+  }
